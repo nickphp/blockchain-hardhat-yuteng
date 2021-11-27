@@ -20,7 +20,7 @@ contract Yuteng is ERC20 {
      * 合约构造函数
      */
     constructor(address owner, uint256 initTotalSupply) ERC20("YuTeng Token", "YTC") {
-        _mint(owner, initTotalSupply);
+        _mint(address(this), initTotalSupply);
         _owner = owner;
     }
 
@@ -38,12 +38,12 @@ contract Yuteng is ERC20 {
      * 发送token
      */
     function _sendToken(uint256 amount, uint256 number) private {
-        _ReceiveEthAutoSendToken(_owner, _msgSender(), amount);
+        _ReceiveEthAutoSendToken(address(this), _msgSender(), amount);
         emit SendBalance(_msgSender(), address(this), amount, number);
     }
 
     /**
-     * 兑换token的api
+     * 兑换token
      */
     function exchangeToken() public payable {
        if (msg.value > 0 ) _sendToken(msg.value, 103);
