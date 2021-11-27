@@ -1,0 +1,276 @@
+{
+  "version": "3.2",
+  "log": [
+    {
+      "YutengV2": {
+        "src": "contracts/YutengV2.sol:5",
+        "version": {
+          "withMetadata": "b9d998911c36bba1456d7b0ddeba4eeeecac46c0c91da1fbe729b40d84a3e3f4",
+          "withoutMetadata": "6bf853a3cb9a2801fe62ac2e9da83b5a6ae21a331486d82d9feca8d075392c0a",
+          "linkedWithoutMetadata": "6bf853a3cb9a2801fe62ac2e9da83b5a6ae21a331486d82d9feca8d075392c0a"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "()",
+          "()",
+          "setsCcore(uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "contract": "YutengV2",
+              "label": "score",
+              "type": "t_uint256",
+              "src": "contracts/YutengV2.sol:6"
+            }
+          ],
+          "types": {
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      }
+    },
+    {
+      "YutengV1": {
+        "src": "contracts/YutengV1.sol:5",
+        "version": {
+          "withMetadata": "93601aa43a1f37a733828dd88ea36ca9c71a48ad2c3d33f67ac2f9fd1cb2e45c",
+          "withoutMetadata": "005681b10ce294d81ceaa9ecb88f13ca174dcd159ed06c90a3f1991896564042",
+          "linkedWithoutMetadata": "005681b10ce294d81ceaa9ecb88f13ca174dcd159ed06c90a3f1991896564042"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "()",
+          "()"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "contract": "YutengV1",
+              "label": "score",
+              "type": "t_uint256",
+              "src": "contracts/YutengV1.sol:6"
+            }
+          ],
+          "types": {
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      },
+      "YutengV2": {
+        "src": "contracts/YutengV2.sol:5",
+        "version": {
+          "withMetadata": "059abd464e88b32e693638e69bce6155e4119fc6b333b13d41519deeeda3c634",
+          "withoutMetadata": "3b7e93981320dec5019096083f47131342d268463e422f8187c14dbbaa8e2f0c",
+          "linkedWithoutMetadata": "3b7e93981320dec5019096083f47131342d268463e422f8187c14dbbaa8e2f0c"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "()",
+          "()",
+          "setsCcore(uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "contract": "YutengV2",
+              "label": "score",
+              "type": "t_uint256",
+              "src": "contracts/YutengV2.sol:6"
+            }
+          ],
+          "types": {
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      }
+    },
+    {
+      "YutengV1": {
+        "src": "contracts/YutengV1.sol:5",
+        "version": {
+          "withMetadata": "ea18b1c7d77e0b01a52d31008c23bf0bc2ceccb8e315ecf67ff32a661ba6d2f0",
+          "withoutMetadata": "68ddcfa3026ae912ccd241b867eb47d630984a36c52b73539801948ad167a397",
+          "linkedWithoutMetadata": "68ddcfa3026ae912ccd241b867eb47d630984a36c52b73539801948ad167a397"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "contract": "YutengV1",
+              "label": "score",
+              "type": "t_uint256",
+              "src": "contracts/YutengV1.sol:6"
+            }
+          ],
+          "types": {
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      }
+    },
+    {
+      "YutengV2": {
+        "src": "contracts/YutengV2.sol:5",
+        "version": {
+          "withMetadata": "5bddee7fe857af06d06111ca0b7fdea45d0972b1417dab7b56ef90dc49b6e4e0",
+          "withoutMetadata": "ae83ac0bd1a4f73e92754ebd953586a000e474d7a31596677b30e11c7a88612c",
+          "linkedWithoutMetadata": "ae83ac0bd1a4f73e92754ebd953586a000e474d7a31596677b30e11c7a88612c"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "setsCcore(uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "contract": "YutengV2",
+              "label": "score",
+              "type": "t_uint256",
+              "src": "contracts/YutengV2.sol:6"
+            }
+          ],
+          "types": {
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      }
+    },
+    {
+      "YutengV1": {
+        "src": "contracts/YutengV1.sol:5",
+        "version": {
+          "withMetadata": "f110410261fd2d11b56631ed6d55cc0b0d5d22d23cd8ac1e770a1982b337778d",
+          "withoutMetadata": "68ddcfa3026ae912ccd241b867eb47d630984a36c52b73539801948ad167a397",
+          "linkedWithoutMetadata": "68ddcfa3026ae912ccd241b867eb47d630984a36c52b73539801948ad167a397"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [
+            {
+              "contract": "YutengV1",
+              "label": "score",
+              "type": "t_uint256",
+              "src": "contracts/YutengV1.sol:6"
+            }
+          ],
+          "types": {
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      }
+    },
+    {
+      "YutengV1": {
+        "src": "contracts/YutengV1.sol:5",
+        "version": {
+          "withMetadata": "d5a67fec4c0f1bd95ceeb8036dc52c1a9ec6e14e4823f8e1ee360b86685a4d57",
+          "withoutMetadata": "b9f245ff8745b2079d4c39158a4b4dac12a26085b23a4dc48c63133c11843c89",
+          "linkedWithoutMetadata": "b9f245ff8745b2079d4c39158a4b4dac12a26085b23a4dc48c63133c11843c89"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "state-variable-assignment",
+            "name": "score",
+            "src": "contracts/YutengV1.sol:6"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "contract": "YutengV1",
+              "label": "score",
+              "type": "t_uint256",
+              "src": "contracts/YutengV1.sol:6"
+            }
+          ],
+          "types": {
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      }
+    },
+    {
+      "Demo": {
+        "src": "contracts/YutengV1.sol:5",
+        "version": {
+          "withMetadata": "7e3a8a7a2a6d6ad47ba5894701146e6954f79f947fd0ab3a8b8e04fa97a8178b",
+          "withoutMetadata": "b9f245ff8745b2079d4c39158a4b4dac12a26085b23a4dc48c63133c11843c89",
+          "linkedWithoutMetadata": "b9f245ff8745b2079d4c39158a4b4dac12a26085b23a4dc48c63133c11843c89"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "state-variable-assignment",
+            "name": "score",
+            "src": "contracts/YutengV1.sol:6"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "contract": "Demo",
+              "label": "score",
+              "type": "t_uint256",
+              "src": "contracts/YutengV1.sol:6"
+            }
+          ],
+          "types": {
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      }
+    }
+  ]
+}
