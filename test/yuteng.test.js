@@ -16,6 +16,8 @@ describe('Yuteng合约测试', () => {
     this.one = one
     this.two = two
 
+
+
     //获取合约工厂对象
     const Contract = await ethers.getContractFactory('Yuteng')
     this.Contract = Contract;
@@ -59,9 +61,13 @@ describe('Yuteng合约测试', () => {
     })
 
     //two账号发送以太币到合约
-    await this.two.sendTransaction({
-      to: this.contract.address, value: ethers.utils.parseEther('88')
-    })
+    // await this.two.sendTransaction({
+    //   to: this.contract.address, value: ethers.utils.parseEther('88')
+    // })
+
+    //限制兑换
+    // const twoContract = new ethers.Contract(this.contract.address, this.Contract.interface, this.two)
+    // await twoContract.exchangeToken()
 
     // //one账户授权6.5个以太给合owner
     // const oneContract = new ethers.Contract(this.contract.address, this.Contract.interface, this.one)
