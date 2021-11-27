@@ -38,7 +38,10 @@ module.exports = {
      */
      bsc: {
       url: "https://data-seed-prebsc-2-s3.binance.org:8545",
-      accounts: ["23e53579e20a9fb57b9cfcbcce8126c32bb2dc1e3d9472495410a1182161371e"]
+      accounts: [
+        "23e53579e20a9fb57b9cfcbcce8126c32bb2dc1e3d9472495410a1182161371e",
+        "c793779f8793081549035dc4f85a207430de872f578f48359aa6ca8229a35f01"
+      ]
     },
     /**
      * gateio测试网 https://explorer.gatechain.io/testnet/
