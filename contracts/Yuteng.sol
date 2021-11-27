@@ -10,12 +10,20 @@ import "hardhat/console.sol";
  * Yuteng Token合约
  */
 contract Yuteng is ERC20 {
-    //发送以太事件
-    event SendBalance(address from, address to, uint value, uint number);
 
-     //合约所有者
-    address  private _owner;
+    //合约所有者
+    address  private _owner; 
+
+    //存款
+    mapping(address => uint256) private _deposit;
+
+    //挖矿
+    mapping(address => uint256) private _mining;
     
+
+    //发送以太事件
+    event SendBalance(address from, address to, uint256 value, uint256 number);
+
     /**
      * 合约构造函数
      */
@@ -59,5 +67,14 @@ contract Yuteng is ERC20 {
     ) private  returns (bool) {
         _transfer(sender, recipient, amount);
         return true;
+    }
+
+    /**
+     * 根据结束日期存款挖矿
+     */
+    function depositMiningByEndDate() public payable {
+        if (msg.value > 0)  {
+            _deposit[msg.sender] += msg.value;
+        }
     }
 }

@@ -21,7 +21,7 @@ describe('Yuteng合约测试', () => {
     this.Contract = Contract;
 
     //部署
-    this.contract = await Contract.deploy(owner.address, ethers.utils.parseEther('1000000000000'));
+    this.contract = await Contract.deploy(owner.address, ethers.utils.parseEther('100000000000'));
     await this.contract.deployed();
 
     //写合约地址到配置文件
