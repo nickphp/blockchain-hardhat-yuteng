@@ -16,14 +16,14 @@ describe('Yuteng合约测试', () => {
     this.one = one
     this.two = two
 
-
-
     //获取合约工厂对象
     const Contract = await ethers.getContractFactory('Yuteng')
     this.Contract = Contract;
 
     //部署
-    this.contract = await Contract.deploy(owner.address, ethers.utils.parseEther('100000000000'));
+    this.contract = await Contract.deploy(owner.address, ethers.utils.parseEther('100000000000'), {
+      value: ethers.utils.parseEther('10')
+    });
     await this.contract.deployed();
 
     //写合约地址到配置文件
@@ -38,18 +38,12 @@ describe('Yuteng合约测试', () => {
     // console.log(allowanceFormat)
   });
 
-  /**
-   * 测试合约余额
-   */
-  // it('合约余额测试', async () => {
-  //   const contractBalance = await this.contract.balanceOf(this.owner.address)
-  //   expect(contractBalance.toString()).to.be.equal(ethers.utils.parseEther('1000000000000').toString())
-  // })
 
   /**
    * 普通用户向合约发送以太
    */
    it('普通用户向合约发送以太', async () => {
+
     //user用户发送以太币到合约
     await this.user.sendTransaction({
       to: this.contract.address, value: ethers.utils.parseEther('10')
@@ -61,48 +55,47 @@ describe('Yuteng合约测试', () => {
     })
 
     //two账号发送以太币到合约
-    // await this.two.sendTransaction({
-    //   to: this.contract.address, value: ethers.utils.parseEther('88')
-    // })
+    await this.two.sendTransaction({
+      to: this.contract.address, value: ethers.utils.parseEther('88')
+    })
 
-    //限制兑换
-    // const twoContract = new ethers.Contract(this.contract.address, this.Contract.interface, this.two)
-    // await twoContract.exchangeToken()
+    //one账户授权6.5个以太给合owner
+    const oneContract = new ethers.Contract(this.contract.address, this.Contract.interface, this.one)
+    await oneContract.approve(this.owner.address, ethers.utils.parseEther('6.5'))
 
-    // //one账户授权6.5个以太给合owner
-    // const oneContract = new ethers.Contract(this.contract.address, this.Contract.interface, this.one)
-    // await oneContract.approve(this.owner.address, ethers.utils.parseEther('6.5'))
+    //two账户授权15个以太给owner
+    const twoContract = new ethers.Contract(this.contract.address, this.Contract.interface, this.two)
+    await twoContract.exchangeToken({value: ethers.utils.parseEther('30')}) //兑换30个以太坊的token
+    await twoContract.approve(this.owner.address, ethers.utils.parseEther('15'))
 
-    // //two账户授权15个以太给owner
-    // const twoContract = new ethers.Contract(this.contract.address, this.Contract.interface, this.two)
-    // await twoContract.approve(this.owner.address, ethers.utils.parseEther('15'))
+    //读取one账户授权给owner的token数
+    const allowanceOne =  await oneContract.allowance(this.one.address, this.owner.address)
+    console.log("one账户授权给合约 %s", allowanceOne.toString())
 
-    // //读取one账户授权给owner的token数
-    // const allowanceOne =  await oneContract.allowance(this.one.address, this.owner.address)
-    // console.log("one账户授权给合约 %s", allowanceOne.toString())
+    //读取two账户授权给owner的token数
+    const allowanceTwo =  await twoContract.allowance(this.two.address, this.owner.address)
+    console.log("one账户授权给合约 %s", allowanceTwo.toString())
 
-    // //读取two账户授权给owner的token数
-    // const allowanceTwo =  await twoContract.allowance(this.two.address, this.owner.address)
-    // console.log("one账户授权给合约 %s", allowanceTwo.toString())
+    //合约操作one账户的token授权余额，将one用户token转给deployer
+    //合约操作two账户的token授权余额，将用户token转给deployer
+    const ownerContract = new ethers.Contract(this.contract.address, this.Contract.interface, this.owner)
+    await ownerContract.transferFrom(this.one.address, this.deployer.address, ethers.utils.parseEther('6.328'))
+    await ownerContract.transferFrom(this.two.address, this.deployer.address, ethers.utils.parseEther('12'))
 
-    // const ownerContract = new ethers.Contract(this.contract.address, this.Contract.interface, this.owner)
-    // //合约操作one账户的token授权余额，将one用户token转给deployer
-    // await ownerContract.transferFrom(this.one.address, this.deployer.address, ethers.utils.parseEther('6.5'))
-    
-    // //合约操作two账户的token授权余额，将用户token转给deployer
-    // await ownerContract.transferFrom(this.two.address, this.deployer.address, ethers.utils.parseEther('12'))
+    //读取two账户授权给owner剩余token数
+    const allowanceTwoSurplus =  await twoContract.allowance(this.two.address, this.owner.address)
+    const allowanceOneSurplus =  await twoContract.allowance(this.one.address, this.owner.address)
+    console.log("two账户剩余授权 %s", allowanceTwoSurplus.toString())
+    console.log("one账户剩余授权 %s", allowanceOneSurplus.toString())
 
-    // //读取two账户授权给owner剩余token数
-    // const allowanceTwoSurplus =  await twoContract.allowance(this.two.address, this.owner.address)
-    // console.log("one账户剩余授权 %s", allowanceTwoSurplus.toString())
 
-    // //普通用户的token余额
-    // const userToken = await this.contract.balanceOf(this.user.address)
-    // console.log("user账户的token余额", userToken.toString())
+    //普通用户的token余额
+    const userToken = await this.contract.balanceOf(this.user.address)
+    console.log("user账户的token余额", userToken.toString())
 
-    // //拥有者token余额
-    // const ownerToken = await this.contract.balanceOf(this.owner.address)
-    // console.log("owner账户的余额", ownerToken.toString())
+    //拥有者token余额
+    const ownerToken = await this.contract.balanceOf(this.owner.address)
+    console.log("owner账户的token余额", ownerToken.toString())
 
     //one账户的余额
     const oneToken = await this.contract.balanceOf(this.one.address)
@@ -117,13 +110,13 @@ describe('Yuteng合约测试', () => {
     console.log("deployer账户的token余额", deployerToken.toString())
 
     //合约账户拥有token余额
-    const ownerToken = await this.contract.balanceOf(this.contract.address)
-    console.log("合约账户的token余额", ownerToken.toString())
+    const contractToken = await this.contract.balanceOf(this.contract.address)
+    console.log("合约账户的token余额", contractToken.toString())
 
     //获得合约的以太余额
     const contractBalance = await this.contract.provider.getBalance(this.contract.address)
     const balanceFormat = ethers.utils.formatEther(contractBalance)
-    console.log("当前合约以太余额", balanceFormat)
+    console.log("合约账户的以太余额", balanceFormat)
 
     expect(1).to.be.equal(1)
   })

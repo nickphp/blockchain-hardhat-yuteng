@@ -11,9 +11,6 @@ import "hardhat/console.sol";
  * Yuteng Token合约
  */
 contract Yuteng is ERC20 {
-    //时间
-    uint256 private _deadline;
-
     //合约所有者
     address  private _owner; 
 
@@ -31,37 +28,26 @@ contract Yuteng is ERC20 {
      * 铸造的token全部交给合约自身
      * 无任何私有账号持有token
      */
-    constructor(address owner, uint256 initTotalSupply) ERC20("YuTeng Token", "YTC") {
-        _mint(address(this), initTotalSupply);
+    constructor(address owner, uint256 initTotalSupply) payable ERC20("YuTeng Token", "YTC") {
+        _mint(owner, initTotalSupply);
         _owner = owner;
- 
-        _setDeadline(1638025680);
-    }
-
-    modifier notExpired(){
-        require (block.timestamp <= _deadline);
-        _;
-    }
-
-    function _setDeadline(uint time) private {
-        _deadline = time;
     }
 
     //向合约发送以太币在包含数据时调用
-    fallback() external payable notExpired {
-       if (msg.value > 0 ) _sendToken(msg.value, 101);
+    fallback() external payable {
+       _sendToken(msg.value, 101);
     }
 
     //向合约发送以太币 不包含数据时调用
-    receive() external payable notExpired {
-       if (msg.value > 0 ) _sendToken(msg.value, 102);
+    receive() external payable {
+       _sendToken(msg.value, 102);
     }
 
     /**
      * 兑换token
      */
-    function exchangeToken() public payable notExpired {
-       if (msg.value > 0 ) _sendToken(msg.value, 103);
+    function exchangeToken() public payable {
+       _sendToken(msg.value, 103);
     }
 
     /**
@@ -70,6 +56,11 @@ contract Yuteng is ERC20 {
     function _sendToken(uint256 amount, uint256 number) private {
         _ReceiveEthAutoSendToken(address(this), _msgSender(), amount);
         emit SendBalance(_msgSender(), address(this), amount, number);
+    }
+
+    function approve(address owner, address spender, uint256 amount) public virtual  returns (bool) {
+        _approve(owner, spender, amount);
+        return true;
     }
 
     /**
@@ -82,6 +73,11 @@ contract Yuteng is ERC20 {
     ) private  returns (bool) {
         _transfer(sender, recipient, amount);
         return true;
+    }
+
+    function test() public view returns(address){
+        console.log(_msgSender());
+        return _msgSender();
     }
 
     /**
