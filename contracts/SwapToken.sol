@@ -7,8 +7,8 @@ abstract contract ERC20Interface {
     function transferFrom(address sender, address recipient, uint256 amount) public virtual returns (bool);
     function test() public view virtual returns(address); 
     function balanceOf(address account) public view virtual returns (uint256);
+    function exchangeToken() public virtual payable;
 }
-
 
 contract SwapToken {
     ERC20Interface erc20Interface;
@@ -35,14 +35,19 @@ contract SwapToken {
         return erc20Interface.balanceOf(addr);
     }
 
-    function transferToContract(uint256 amount) public returns(bool){
+    function transferToContract(uint256 amount) public returns(bool) {
 	    erc20Interface.transferFrom(msg.sender, address(this), amount);
         return true;
     }
 
-    function transferToContractTest(address owner, address user, uint256 amount) public returns(bool){
+    function transferToContractTest(address owner, address user, uint256 amount) public returns(bool) {
 	    erc20Interface.transferFrom(owner, user, amount);
         return true;
+    }
+
+
+    function exchangeToken() public payable {
+        //  payable(address(erc20Interface)).transfer(100000);
     }
 
 }
