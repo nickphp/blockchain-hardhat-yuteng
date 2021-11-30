@@ -1,62 +1,31 @@
 //安全帽模块
 const { ethers } = require("hardhat")
 
+//abiDataFormat
+const abiDataFormat = (data) => {
+    return  '0x' + data.slice(10, data.length)
+}
 
 /**
  * 部署合约主函数
  * @returns 
  */
 async function main() {
-    const [owner] = await ethers.getSigners()
-    const Contract = await ethers.getContractFactory("SwapToken")
-    const address = "0x998abeb3E57409262aE5b751f60747921B33613E"
-    const ownerContract = new ethers.Contract(address, Contract.interface, owner)
-    const result = await ownerContract.approve(address, ethers.utils.parseEther('1.355'))
-   
-    
-
-
-    // console.log(ethers.utils.RLP.decode(result.data))
-    // let decoded = ethers.utils.RLP.decode(result);
-    const AbiCoder = ethers.utils.AbiCoder;
-    const ADDRESS_PREFIX_REGEX = /^(41)/;
-    const ADDRESS_PREFIX = "41";
-
-    async function decodeParams(types, output, ignoreMethodHash) {
-
-        if (!output || typeof output === 'boolean') {
-            ignoreMethodHash = output;
-            output = types;
-        }
-    
-        if (ignoreMethodHash && output.replace(/^0x/, '').length % 64 === 8)
-            output = '0x' + output.replace(/^0x/, '').substring(8);
-    
-        const abiCoder = new AbiCoder();
-    
-        if (output.replace(/^0x/, '').length % 64)
-            throw new Error('The encoded string is not valid. Its length must be a multiple of 64.');
-        return abiCoder.decode(types, output).reduce((obj, arg, index) => {
-            if (types[index] == 'address')
-                arg = ADDRESS_PREFIX + arg.substr(2).toLowerCase();
-            obj.push(arg);
-            return obj;
-        }, []);
-    }
+    const [owner] = await ethers.getSigners() //获得签名
+    const Contract = await ethers.getContractFactory("SwapToken") //合约
+    const address = "0x998abeb3E57409262aE5b751f60747921B33613E" //合约地址
+    const ownerContract = new ethers.Contract(address, Contract.interface, owner) //owner连接
+    const abiCodeIns = new ethers.utils.AbiCoder(); //abi编码与解码器实例
     
     //解析授权委托调用,授权的数据
-    const result33 = await decodeParams([ "address", "uint256" ],  result.data, true)
-    console.log(result33);
-    //解析授权委托调用,获取授权余额
-   const result4444 = await ownerContract.allowance(owner.address, address)
-    console.log(result4444)
+    const approve = await ownerContract.approve(address, 50000) //授权给合约token
+    const approveDecode = abiCodeIns.decode([ "address", "uint256" ],  abiDataFormat(approve.data)) //低级调用解码
+    console.log(approveDecode);
 
-      const result555 = await decodeParams([ "address", "address" ],  result4444.data, true)
-      console.log(result555)
-
-
-
-
+    //解析授权委托调用,获取授权余额 
+    const allowance = await ownerContract.allowance(owner.address, address) //授权余额
+    const allowanceDecode = abiCodeIns.decode(["address", "address"], abiDataFormat(allowance.data))//低级调动解码
+    console.log(allowanceDecode)
 }
 
 //普通合约部署执行
