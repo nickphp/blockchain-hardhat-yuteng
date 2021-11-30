@@ -26,21 +26,25 @@ contract SwapToken {
         return abi.decode(data, (bool));
     }
 
-    function allowance(address owner, address spender) external  returns (uint256) {
-        (bool rslt, bytes memory data) = contractAddressCurrent.delegatecall(abi.encodeWithSignature("age(address,address)", owner, spender));
+    function allowance(address owner, address spender) external returns (uint256) {
+        console.log(owner,spender);
+     
+        (bool rslt, bytes memory data) = contractAddressCurrent.delegatecall(abi.encodeWithSignature("allowance(address,address)", owner, owner));
+        console.log(rslt);
         require(rslt, 'Delegate Call failed2');
         return abi.decode(data, (uint256));
+    
     }
 
     function test() external view returns (address) {
         return erc20Interface.test();
     }
 
-    function age2(uint256 newAge) external returns (bool) {
-        (bool rslt, bytes memory data) = contractAddressCurrent.delegatecall(abi.encodeWithSignature("age(uint256)", newAge));
-        require(rslt, 'Delegate Call failed2');
-        return abi.decode(data, (bool));
-    }
+    // function age2(uint256 newAge) external returns (bool) {
+    //     (bool rslt, bytes memory data) = contractAddressCurrent.delegatecall(abi.encodeWithSignature("age(uint256)", newAge));
+    //     require(rslt, 'Delegate Call failed2');
+    //     return abi.decode(data, (bool));
+    // }
     
 
     function balanceOf(address addr) public view  returns (uint256) {

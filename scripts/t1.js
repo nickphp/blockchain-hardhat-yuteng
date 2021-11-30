@@ -9,11 +9,11 @@ const { ethers } = require("hardhat")
 async function main() {
     const [owner] = await ethers.getSigners()
     const Contract = await ethers.getContractFactory("SwapToken")
-    const address = "0xcE0066b1008237625dDDBE4a751827de037E53D2"
+    const address = "0x998abeb3E57409262aE5b751f60747921B33613E"
     const ownerContract = new ethers.Contract(address, Contract.interface, owner)
     const result = await ownerContract.approve(address, ethers.utils.parseEther('1.355'))
    
-    // const result5555 = await ownerContract.allowance(owner.address, address)
+    
 
 
     // console.log(ethers.utils.RLP.decode(result.data))
@@ -43,9 +43,17 @@ async function main() {
             return obj;
         }, []);
     }
-
+    
+    //解析授权委托调用,授权的数据
     const result33 = await decodeParams([ "address", "uint256" ],  result.data, true)
     console.log(result33);
+    //解析授权委托调用,获取授权余额
+   const result4444 = await ownerContract.allowance(owner.address, address)
+    console.log(result4444)
+
+      const result555 = await decodeParams([ "address", "address" ],  result4444.data, true)
+      console.log(result555)
+
 
 
 

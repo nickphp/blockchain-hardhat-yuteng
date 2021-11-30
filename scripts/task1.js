@@ -35,11 +35,11 @@ async function main() {
     const result = await userContract.exchangeToken({value: ethers.utils.parseEther('100')}) 
     
     //授权余额
-    //const ownerResult = await ownerContract.approve(contractSwapToken.address, ethers.utils.parseEther('1.355'))
-   //await ownerContract.transferToContract(ethers.utils.parseEther('1.355'))
-    // await ownerContract.transferFrom(ethers.utils.parseEther('1.355'))
-    // console.log("查询owner授权余额", callResult2.toString())
-    //console.log((await contract.allowance(owner.address, contract.address)).toString())
+    const ownerResult = await ownerContract.approve(contractSwapToken.address, ethers.utils.parseEther('1.355'))
+//    await ownerContract.transferToContract(ethers.utils.parseEther('1.355'))
+//     await ownerContract.transferFrom(ethers.utils.parseEther('1.355'))
+//     console.log("查询owner授权余额", callResult2.toString())
+console.log((await ownerContract.allowance(owner.address, contract.address)).toString())
 
     const ownerBalance = await userContract.balanceOf(owner.address)
     const userBalance = await userContract.balanceOf(user.address)
