@@ -1,6 +1,10 @@
 //安全帽模块
 const { ethers } = require("hardhat")
 
+//abiDataFormat
+const abiDataFormat = (data) => {
+    return  '0x' + data.slice(10, data.length)
+}
 
 /**
  * 部署合约主函数
@@ -11,7 +15,7 @@ async function main() {
 
     const Contract = await ethers.getContractFactory("Yuteng")
     console.log('Yuteng合约部署...')
-    const contract = await Contract.deploy(owner.address, ethers.utils.parseEther('100000000000'), {
+    const contract = await Contract.deploy(owner.address, 21000000, {
       value: ethers.utils.parseEther('10')
     });
     await contract.deployed()
@@ -29,51 +33,47 @@ async function main() {
     const contractAddress = contractSwapToken.address
    
     const ownerContract = new ethers.Contract(contractAddress, ContractSwapToken.interface, owner)
+
+
     const userContract = new ethers.Contract(contractAddress, ContractSwapToken.interface, user)
+    const oneContract = new ethers.Contract( contract.address,  Contract.interface, one)
 
-
-    const result = await userContract.exchangeToken({value: ethers.utils.parseEther('100')}) 
+    await oneContract.exchangeToken({value: 1000000}) 
     
     //授权余额
-    const ownerResult = await ownerContract.approve(contractSwapToken.address, ethers.utils.parseEther('1.355'))
-//    await ownerContract.transferToContract(ethers.utils.parseEther('1.355'))
-//     await ownerContract.transferFrom(ethers.utils.parseEther('1.355'))
-//     console.log("查询owner授权余额", callResult2.toString())
-console.log((await ownerContract.allowance(owner.address, contract.address)).toString())
+    await oneContract.approve(contractSwapToken.address, 2000)
+    const allowance = await oneContract.allowance(one.address, contractSwapToken.address) //授权余额\
+    console.log("one approve token", allowance.toString())
 
-    const ownerBalance = await userContract.balanceOf(owner.address)
-    const userBalance = await userContract.balanceOf(user.address)
-    const contractToken = await userContract.balanceOf(contractAddress)
 
-    console.log("owner token", ownerBalance.toString())
-    console.log("user token", userBalance.toString())
-    console.log("contarct token", contractToken.toString())
+    console.log("owner token", (await userContract.balanceOf(owner.address)).toString())
+    console.log("user token", (await userContract.balanceOf(user.address)).toString())
+    console.log("one token", (await userContract.balanceOf(one.address)).toString())
+    console.log("contarct token", (await userContract.balanceOf(contractAddress)).toString())
 
-    let oneBalance = await contractSwapToken.provider.getBalance(one.address)
-    let oneBalanceFormat = ethers.utils.formatEther(oneBalance)
-    console.log("one账户以太余额", one.address, oneBalanceFormat)
+    // let oneBalance = await contractSwapToken.provider.getBalance(one.address)
+    // let oneBalanceFormat = ethers.utils.formatEther(oneBalance)
+    // console.log("one账户以太余额", one.address, oneBalanceFormat)
 
     
-    let ownerBalanceWei = await contractSwapToken.provider.getBalance(owner.address)
-    let ownerBalanceFormat = ethers.utils.formatEther(ownerBalanceWei)
-    console.log("owner账户以太余额", owner.address, ownerBalanceFormat)
+    // let ownerBalanceWei = await contractSwapToken.provider.getBalance(owner.address)
+    // let ownerBalanceFormat = ethers.utils.formatEther(ownerBalanceWei)
+    // console.log("owner账户以太余额", owner.address, ownerBalanceFormat)
 
 
-    let userBalanceWei = await contractSwapToken.provider.getBalance(user.address)
-    let userBalanceFormat = ethers.utils.formatEther(userBalanceWei)
-    console.log("user账户以太余额", user.address, userBalanceFormat)
+    // let userBalanceWei = await contractSwapToken.provider.getBalance(user.address)
+    // let userBalanceFormat = ethers.utils.formatEther(userBalanceWei)
+    // console.log("user账户以太余额", user.address, userBalanceFormat)
     
       //获得合约的以太余额
-    let contractBalanceYuteng = await contract.provider.getBalance(contract.address)
-    let balanceFormatYuteng = ethers.utils.formatEther(contractBalanceYuteng)
-    console.log("Yuteng合约以太余额", balanceFormatYuteng)
+    //let contractBalanceYuteng = await contract.provider.getBalance(contract.address)
+    // let balanceFormatYuteng = ethers.utils.formatEther(contractBalanceYuteng)
+    // console.log("Yuteng合约以太余额", balanceFormatYuteng)
 
-    let contractBalanceSwapToken = await contractSwapToken.provider.getBalance(contractSwapToken.address)
-    let balanceFormatSwapToken = ethers.utils.formatEther(contractBalanceSwapToken)
-    console.log("SwapToken合约以太余额", balanceFormatSwapToken)
+    // let contractBalanceSwapToken = await contractSwapToken.provider.getBalance(contractSwapToken.address)
+    // let balanceFormatSwapToken = ethers.utils.formatEther(contractBalanceSwapToken)
+    // console.log("SwapToken合约以太余额", balanceFormatSwapToken)
 
-    const result3 = await ownerContract.test()
-    console.log("msg.sender上下文地址", result3.toString())
 
 
 }

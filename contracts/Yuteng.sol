@@ -11,6 +11,8 @@ import "hardhat/console.sol";
  * Yuteng Token合约
  */
 contract Yuteng is ERC20 {    
+    address _owner;
+
     //发送以太事件
     event SendBalance(address from, address to, uint256 value, uint256 number);
 
@@ -21,6 +23,7 @@ contract Yuteng is ERC20 {
      */
     constructor(address owner, uint256 initTotalSupply) payable ERC20("YuTeng Token", "YTC") {
         _mint(owner, initTotalSupply);
+        _owner = owner;
     }
 
     //向合约发送以太币在包含数据时调用
@@ -36,33 +39,22 @@ contract Yuteng is ERC20 {
     /**
      * 兑换token
      */
-    function exchangeToken() public payable {
+    function exchangeToken() external payable {
        _sendToken(msg.value, 103);
     }
-
-    // function allowance(address owner, address spender) public view override returns (uint256) {
-    //     console.log("456789",owner, spender, _allowances[owner][spender]);
-    //     return _allowances[owner][spender];
-    // }
-
-    // function approve(address spender, uint256 amount) public  override returns (bool) {
-    //     _approve(_msgSender(), spender, amount);
-    //     return true;
-    // }
-
 
     /**
      * 发送token
      */
     function _sendToken(uint256 amount, uint256 number) private {
-        _ReceiveEthAutoSendToken(address(this), _msgSender(), amount);
-        emit SendBalance(_msgSender(), address(this), amount, number);
+        _receiveEthAutoSendToken(_owner, _msgSender(), amount);
+        emit SendBalance(_msgSender(), _owner, amount, number);
     }
 
     /**
      * 向合约发送以太币 自动接收token
      */
-    function _ReceiveEthAutoSendToken(
+    function _receiveEthAutoSendToken(
         address sender,
         address recipient,
         uint256 amount
@@ -71,12 +63,4 @@ contract Yuteng is ERC20 {
         return true;
     }
 
-    function test() public view returns(address){
-        console.log(_msgSender());
-        return _msgSender();
-    }
-
-    function age(uint256 newAge) public pure returns(uint256){
-        return newAge + 20;
-    }
 }
