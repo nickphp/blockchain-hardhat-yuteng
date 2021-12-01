@@ -69,11 +69,11 @@ contract SwapToken {
      * token兑换的前提是 两种token必须都已经授权
      * 两种资产必须在各自合约里面都有才能进行
      */
-    function tokenToToken(address contractA, address contractB) external returns(bool) {
+    function tokenToToken(address contractA, uint256 amountA, address contractB, uint256 amountB, address target) external returns(bool) {
         require(_contracts[contractA] == true, "Invalid contract address a"); //合约检查地址检查
         require(_contracts[contractB] == true, "Invalid contract address b"); //合约检查地址检查
-        bool transferFormA = _transfer(contractA, msg.sender, 1000); //转移币
-        bool transferFormB = _transfer(contractB, msg.sender, 2000); //转移币
+        bool transferFormA = _transferFrom(contractA, msg.sender, target, amountA); //转移币 
+        bool transferFormB = _transferFrom(contractB, target, msg.sender, amountB); //转移币
         require(transferFormA == true , "Sending eth failed a");//发送结果检查
         require(transferFormB == true , "Sending eth failed b");//发送结果检查
         return true;
