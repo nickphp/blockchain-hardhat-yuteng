@@ -21,6 +21,513 @@
       "SwapToken": {
         "src": "contracts/SwapToken.sol:14",
         "version": {
+          "withMetadata": "5f3664bf8e28026a9267ef87668f5e5f87f7c48da5eca9b8017021d7575c474f",
+          "withoutMetadata": "815ad4b32a1a49bf79dd1d4919f02dfa6a774b15004e00f6fd2886c4a3ae8ac8",
+          "linkedWithoutMetadata": "815ad4b32a1a49bf79dd1d4919f02dfa6a774b15004e00f6fd2886c4a3ae8ac8"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "(address,address[])",
+          "saveContract(address,bool)",
+          "tokenToEth(address,uint56)",
+          "ethToToken(address,uint256)",
+          "tokenToToken(address,uint256,address,uint256,address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SwapToken",
+            "src": "contracts/SwapToken.sol:27"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "tokenToEthLock",
+            "src": "contracts/SwapToken.sol:23"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "tokenToTokenLock",
+            "src": "contracts/SwapToken.sol:25"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "contract": "SwapToken",
+              "label": "erc20Interface",
+              "type": "t_contract(ERC20Interface)23",
+              "src": "contracts/SwapToken.sol:14"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_contracts",
+              "type": "t_mapping(t_address,t_bool)",
+              "src": "contracts/SwapToken.sol:15"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "contracts/SwapToken.sol:17"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_allowances",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "src": "contracts/SwapToken.sol:17"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "tokenToEthLock",
+              "type": "t_bool",
+              "src": "contracts/SwapToken.sol:23"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "tokenToTokenLock",
+              "type": "t_bool",
+              "src": "contracts/SwapToken.sol:25"
+            }
+          ],
+          "types": {
+            "t_contract(ERC20Interface)23": {
+              "label": "contract ERC20Interface"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)"
+            },
+            "t_address": {
+              "label": "address"
+            },
+            "t_bool": {
+              "label": "bool"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)"
+            },
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      },
+      "console": {
+        "src": "hardhat/console.sol:4",
+        "version": {
+          "withMetadata": "beae05454d6c24b0af2926d3f12cbd62c3db4a4f7dff423bd7ff2ddbe2972f20",
+          "withoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff",
+          "linkedWithoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1"
+        }
+      }
+    },
+    {
+      "ERC20Interface": {
+        "src": "contracts/SwapToken.sol:4",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1"
+        }
+      },
+      "SwapToken": {
+        "src": "contracts/SwapToken.sol:14",
+        "version": {
+          "withMetadata": "1485e1a5ff8a43f1b96de9297aeef747af9e9eea5c7e44f76df17b04626d5c67",
+          "withoutMetadata": "6dc2c35d47696fb25f99fcbf23045a9b1e0565a3ba833d689ab2d4ca16ac0764",
+          "linkedWithoutMetadata": "6dc2c35d47696fb25f99fcbf23045a9b1e0565a3ba833d689ab2d4ca16ac0764"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "(address,address[])",
+          "saveContract(address,bool)",
+          "tokenToEth(address,uint56)",
+          "ethToToken(address,uint256)",
+          "tokenToToken(address,uint256,address,uint256,address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SwapToken",
+            "src": "contracts/SwapToken.sol:26"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "tokenToEthLock",
+            "src": "contracts/SwapToken.sol:24"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "contract": "SwapToken",
+              "label": "erc20Interface",
+              "type": "t_contract(ERC20Interface)23",
+              "src": "contracts/SwapToken.sol:14"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_contracts",
+              "type": "t_mapping(t_address,t_bool)",
+              "src": "contracts/SwapToken.sol:15"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "contracts/SwapToken.sol:17"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_allowances",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "src": "contracts/SwapToken.sol:17"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "tokenToEthLock",
+              "type": "t_bool",
+              "src": "contracts/SwapToken.sol:24"
+            }
+          ],
+          "types": {
+            "t_contract(ERC20Interface)23": {
+              "label": "contract ERC20Interface"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)"
+            },
+            "t_address": {
+              "label": "address"
+            },
+            "t_bool": {
+              "label": "bool"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)"
+            },
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      },
+      "console": {
+        "src": "hardhat/console.sol:4",
+        "version": {
+          "withMetadata": "beae05454d6c24b0af2926d3f12cbd62c3db4a4f7dff423bd7ff2ddbe2972f20",
+          "withoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff",
+          "linkedWithoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1"
+        }
+      }
+    },
+    {
+      "ERC20Interface": {
+        "src": "contracts/SwapToken.sol:4",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1"
+        }
+      },
+      "SwapToken": {
+        "src": "contracts/SwapToken.sol:14",
+        "version": {
+          "withMetadata": "d88cae29d64b42ab2b2ff88b169ff418d5ba1b06881f031143eb609528642b62",
+          "withoutMetadata": "3ad7874e2af5b8b088fa64e9e9ff62a6b0cc3886ba2c3be27aac41492b03d933",
+          "linkedWithoutMetadata": "3ad7874e2af5b8b088fa64e9e9ff62a6b0cc3886ba2c3be27aac41492b03d933"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "(address,address[])",
+          "saveContract(address,bool)",
+          "tokenToEth(address,uint56)",
+          "ethToToken(address,uint256)",
+          "tokenToToken(address,uint256,address,uint256,address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SwapToken",
+            "src": "contracts/SwapToken.sol:26"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "tokenToEthLock",
+            "src": "contracts/SwapToken.sol:24"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "contract": "SwapToken",
+              "label": "erc20Interface",
+              "type": "t_contract(ERC20Interface)23",
+              "src": "contracts/SwapToken.sol:14"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_contracts",
+              "type": "t_mapping(t_address,t_bool)",
+              "src": "contracts/SwapToken.sol:15"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "contracts/SwapToken.sol:17"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_allowances",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "src": "contracts/SwapToken.sol:17"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "tokenToEthLock",
+              "type": "t_bool",
+              "src": "contracts/SwapToken.sol:24"
+            }
+          ],
+          "types": {
+            "t_contract(ERC20Interface)23": {
+              "label": "contract ERC20Interface"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)"
+            },
+            "t_address": {
+              "label": "address"
+            },
+            "t_bool": {
+              "label": "bool"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)"
+            },
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      },
+      "console": {
+        "src": "hardhat/console.sol:4",
+        "version": {
+          "withMetadata": "beae05454d6c24b0af2926d3f12cbd62c3db4a4f7dff423bd7ff2ddbe2972f20",
+          "withoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff",
+          "linkedWithoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1"
+        }
+      }
+    },
+    {
+      "ERC20Interface": {
+        "src": "contracts/SwapToken.sol:4",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1"
+        }
+      },
+      "SwapToken": {
+        "src": "contracts/SwapToken.sol:14",
+        "version": {
+          "withMetadata": "1485e1a5ff8a43f1b96de9297aeef747af9e9eea5c7e44f76df17b04626d5c67",
+          "withoutMetadata": "6dc2c35d47696fb25f99fcbf23045a9b1e0565a3ba833d689ab2d4ca16ac0764",
+          "linkedWithoutMetadata": "6dc2c35d47696fb25f99fcbf23045a9b1e0565a3ba833d689ab2d4ca16ac0764"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "(address,address[])",
+          "saveContract(address,bool)",
+          "tokenToEth(address,uint56)",
+          "ethToToken(address,uint256)",
+          "tokenToToken(address,uint256,address,uint256,address)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "SwapToken",
+            "src": "contracts/SwapToken.sol:26"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "tokenToEthLock",
+            "src": "contracts/SwapToken.sol:24"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "contract": "SwapToken",
+              "label": "erc20Interface",
+              "type": "t_contract(ERC20Interface)23",
+              "src": "contracts/SwapToken.sol:14"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_contracts",
+              "type": "t_mapping(t_address,t_bool)",
+              "src": "contracts/SwapToken.sol:15"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "contracts/SwapToken.sol:17"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "_allowances",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "src": "contracts/SwapToken.sol:17"
+            },
+            {
+              "contract": "SwapToken",
+              "label": "tokenToEthLock",
+              "type": "t_bool",
+              "src": "contracts/SwapToken.sol:24"
+            }
+          ],
+          "types": {
+            "t_contract(ERC20Interface)23": {
+              "label": "contract ERC20Interface"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)"
+            },
+            "t_address": {
+              "label": "address"
+            },
+            "t_bool": {
+              "label": "bool"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)"
+            },
+            "t_uint256": {
+              "label": "uint256"
+            }
+          },
+          "layoutVersion": "1.1"
+        }
+      },
+      "console": {
+        "src": "hardhat/console.sol:4",
+        "version": {
+          "withMetadata": "beae05454d6c24b0af2926d3f12cbd62c3db4a4f7dff423bd7ff2ddbe2972f20",
+          "withoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff",
+          "linkedWithoutMetadata": "08d24783a787f8a51dea0c166bb6f91a4f0865e02d03d749f102d332e6ead0ff"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1"
+        }
+      }
+    },
+    {
+      "ERC20Interface": {
+        "src": "contracts/SwapToken.sol:4",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "transfer(address,uint256)",
+          "transferFrom(address,address,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.1"
+        }
+      },
+      "SwapToken": {
+        "src": "contracts/SwapToken.sol:14",
+        "version": {
           "withMetadata": "7af204bf8e4cf2dbfc71ec247b012e907c2d148f50b1348ef14f4705a05c61b4",
           "withoutMetadata": "5f6ca0f52b2107586f44c24f6e35941f641464f3a22c261a769aecb704e157a7",
           "linkedWithoutMetadata": "5f6ca0f52b2107586f44c24f6e35941f641464f3a22c261a769aecb704e157a7"

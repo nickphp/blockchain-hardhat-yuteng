@@ -62,7 +62,13 @@ async function main() {
     //await userContractUsdt3.tokenToEth(usdtAddress, 60000); //换eth
 
     //token交换 YTC兑换usdt 兑换角色为onwer 10000个币兑换成1000
-    await ownerContract2.tokenToToken(YutengAddress, 10000, usdtAddress, 1000, user.address); //换eth
+
+    try {
+      await ownerContract2.tokenToToken(YutengAddress, 10000, usdtAddress, 1000, user.address); //换eth
+    } catch(e) {
+      
+    }
+   
     
 
     //查看owner账户剩余授权

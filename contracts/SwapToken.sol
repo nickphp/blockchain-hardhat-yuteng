@@ -16,6 +16,7 @@ contract SwapToken {
     address private _owner ; //合约拥有者
     mapping(address => mapping(address => uint256)) private _allowances; //合约授权token列表
     bool tokenToEthLock = false;
+    bool tokenToTokenLock = false;
    
 
     /**
@@ -65,17 +66,28 @@ contract SwapToken {
     }
 
     /**
+     * 此方法演示两个token以太坊erc20 token交换
      * 使用一种token兑换另一种token
+     * 核心思想解释
      * token兑换的前提是 两种token必须都已经授权
      * 两种资产必须在各自合约里面都有才能进行
+     * target在实际的兑换中需要通过算法公式实现从哪些授权用户开始操作
+     * 也就是SwapToken交换合约需要有一个账本记录用户授权的每个token的额度
+     * 例如用户兑换使用YTC兑换1000USDT，有可能从三个或更多授权账户中取出进行授权操作
+     * 将三个账户余额累加超过1000 余数部分返还给三个账户中那个账户(取决于业务模式)
+     * 关于两个token对话的比率 可以通过手工喂价策略（这种策略不靠谱币的价格是时刻变化的）
+     * 因此需要引入价格预言机获得两个token的当前交易时刻的价格，然后根据比率换算交换的额度
      */
     function tokenToToken(address contractA, uint256 amountA, address contractB, uint256 amountB, address target) external returns(bool) {
-        require(_contracts[contractA] == true, "Invalid contract address a"); //合约检查地址检查
-        require(_contracts[contractB] == true, "Invalid contract address b"); //合约检查地址检查
+        require(_contracts[contractA] == true, "Invalid contract address a"); //合约地址检查
+        require(_contracts[contractB] == true, "Invalid contract address b"); //合约地址检查
+        require(!tokenToEthLock, "Reentrant call detected!");//重入锁检查
+        tokenToTokenLock = true;
         bool transferFormA = _transferFrom(contractA, msg.sender, target, amountA); //转移币 
         bool transferFormB = _transferFrom(contractB, target, msg.sender, amountB); //转移币
-        require(transferFormA == true , "Sending eth failed a");//发送结果检查
-        require(transferFormB == true , "Sending eth failed b");//发送结果检查
+        require(transferFormA = true , "Sending eth failed a");//发送结果检查
+        require(transferFormB = true , "Sending eth failed b");//发送结果检查
+        tokenToTokenLock = false;
         return true;
     }
 

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/kyc/blockchain/blockchain-hardhat-yuteng/contracts/SwapToken.sol": {
-      "lastModificationDate": 1638357603760,
-      "contentHash": "b1540ddca02a3eac837d005b292efe4e",
+      "lastModificationDate": 1638359503220,
+      "contentHash": "8c6dc15b9d9e18b84b98696594773931",
       "sourceName": "contracts/SwapToken.sol",
       "solcConfig": {
         "version": "0.8.4",
