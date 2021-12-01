@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@chainlink/contracts@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.npmmirror.com/@chainlink/contracts/download/@chainlink/contracts-0.2.2.tgz#8ea2079d8b22d25807fc63b98ccd3dc0bc2a33fe"
+  integrity sha1-jqIHnYsi0lgH/GO5jM09wLwqM/4=
+
 "@ensdomains/ens@^0.4.4":
   version "0.4.5"
   resolved "https://registry.npmmirror.com/@ensdomains/ens/download/@ensdomains/ens-0.4.5.tgz#e0aebc005afdc066447c6e22feb4eda89a5edbfc"

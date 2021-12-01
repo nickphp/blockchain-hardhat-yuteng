@@ -17,7 +17,7 @@ contract SwapToken {
     mapping(address => mapping(address => uint256)) private _allowances; //合约授权token列表
     bool tokenToEthLock = false;
     bool tokenToTokenLock = false;
-   
+
 
     /**
      * 初始化合约地址列表
@@ -89,6 +89,7 @@ contract SwapToken {
         require(transferFormB = true , "Sending eth failed b");//发送结果检查
         tokenToTokenLock = false;
         return true;
+        
     }
 
     /**

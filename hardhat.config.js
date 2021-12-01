@@ -8,7 +8,7 @@ require('@openzeppelin/hardhat-upgrades');
  */
 module.exports = {
   contractName: "YutengV1", //默认第一个版本的合约名称,用于可升级合约部署
-  solidity: "0.8.4", //使用的solidity库的版本
+  solidity: "0.8.7", //使用的solidity库的版本
   networks: {
     /**
      * 本地hardhat节点

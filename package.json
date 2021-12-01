@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@chainlink/contracts": "^0.2.2",
     "@openzeppelin/contracts": "^4.3.3",
     "@openzeppelin/hardhat-upgrades": "^1.12.0",
     "hardhat": "^2.7.0"
