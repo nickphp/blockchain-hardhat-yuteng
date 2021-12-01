@@ -11,33 +11,31 @@ const abiDataFormat = (data) => {
  * @returns 
  */
 async function main() {
-    const [owner, user, one, two] = await ethers.getSigners()
+    const [owner, user] = await ethers.getSigners()
 
+    console.log("开始部署USDT合约...")
     const ContractUsdt = await ethers.getContractFactory("Usdt")
     const contractUsdt = await ContractUsdt.deploy(user.address, 1000000000);
     await contractUsdt.deployed()
     const usdtAddress = contractUsdt.address
     console.log('Usdt合约地址:', usdtAddress)
 
+    console.log("开始部署YTC合约...")
     const ContractYuteng = await ethers.getContractFactory("Yuteng")
     const ContractSwapToken = await ethers.getContractFactory("SwapToken")
-
-    const contractYuteng = await ContractYuteng.deploy(owner.address, 21000000, {
-      value: ethers.utils.parseEther('100')
-    });
+    const contractYuteng = await ContractYuteng.deploy(owner.address, 21000000);
     await contractYuteng.deployed()
     const YutengAddress = contractYuteng.address
+    console.log('Yuteng合约地址', YutengAddress)
 
-
+    console.log("开始部署SwapToken合约...")
     const contractSwapToken = await ContractSwapToken.deploy(owner.address, [
       YutengAddress,usdtAddress
     ],  {
-      value: ethers.utils.parseEther('100')
+      value: ethers.utils.parseEther('0.1')
     });
     await contractSwapToken.deployed()
     const swapTokenAddress = contractSwapToken.address
-
-    console.log('Yuteng合约地址', YutengAddress)
     console.log('SwapToken合约地址:', swapTokenAddress)
 
     //添加新合约
@@ -47,11 +45,15 @@ async function main() {
 
     //第一步授权给合约token(在用户UI界面调用授权)
     const ownerContract = new ethers.Contract(YutengAddress, ContractYuteng.interface, owner)
-    await ownerContract.approve(swapTokenAddress, 1000000) //授权合约100万ytc token
+    const result1 = await ownerContract.approve(swapTokenAddress, 1000000) //授权合约100万ytc token
+    console.log("owner开始授权交换合约YTC 1000000枚...")
+    await result1.wait()
 
+    console.log("user开始授权交换合约USDT 100000枚...")
     const userContractUsdt = new ethers.Contract(usdtAddress, ContractUsdt.interface, user)
-    await userContractUsdt.approve(swapTokenAddress, 100000) //授权合约10万usdt token
-   
+    const result2 = await userContractUsdt.approve(swapTokenAddress, 100000) //授权合约10万usdt token
+    await result2.wait()
+
     //兑换token为ETH 首先必须完成第一步已授权合约
     const ownerContract2 = new ethers.Contract(swapTokenAddress, ContractSwapToken.interface, owner)
     //await ownerContract2.saveContract(YutengAddress, true) //合约保存
@@ -62,14 +64,9 @@ async function main() {
     //await userContractUsdt3.tokenToEth(usdtAddress, 60000); //换eth
 
     //token交换 YTC兑换usdt 兑换角色为onwer 10000个币兑换成1000
-
-    try {
-      await ownerContract2.tokenToToken(YutengAddress, 10000, usdtAddress, 1000, user.address); //换eth
-    } catch(e) {
-      
-    }
-   
-    
+    console.log("开始交换token...")
+    const result3 = await ownerContract2.tokenToToken(YutengAddress, 10000, usdtAddress, 1000, user.address); //换eth
+    await result3.wait()
 
     //查看owner账户剩余授权
     const allowance = await ownerContract.allowance(owner.address, swapTokenAddress)
@@ -102,19 +99,17 @@ async function main() {
       const ownerToken = await contractYuteng.balanceOf(owner.address)
       console.log("owner账户的YTC token余额", ownerToken.toString())
   
-      //one账户的余额
-      const oneToken = await contractYuteng.balanceOf(one.address)
-      console.log("one账户的YTC token余额", oneToken.toString())
+      // //one账户的余额
+      // const oneToken = await contractYuteng.balanceOf(one.address)
+      // console.log("one账户的YTC token余额", oneToken.toString())
       
-      //two账户的token余额
-      const twoToken = await contractYuteng.balanceOf(two.address)
-      console.log("two账户的YTC token余额", twoToken.toString())
+      // //two账户的token余额
+      // const twoToken = await contractYuteng.balanceOf(two.address)
+      // console.log("two账户的YTC token余额", twoToken.toString())
 
       //合约账户的token余额
       const contractToken = await contractYuteng.balanceOf(swapTokenAddress)
       console.log("合约账户的YTC token余额", contractToken.toString())
-
-
 
       const contractToken22 = await contractUsdt.balanceOf(swapTokenAddress)
       console.log("合约账户的USDT token余额", contractToken22.toString())
