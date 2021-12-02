@@ -48,9 +48,7 @@ async function main() {
   //当任何转账发生时接收一个事件
   usdtContract.on("Transfer", (from, to, amount, event) => { 
     console.log(`${from} sent ${amount}wei to ${to}`)
-      // 事件对象包含逐字日志数据、
-      // EventFragment 和获取块的函数、
-      // 交易和接收以及事件函数
+    //console.log(event)
   })
 
   //过滤器 监听指定账户接收代币交易事件
@@ -66,7 +64,7 @@ async function main() {
 
   //过滤器 查询指定to最后2个接收交易快
   const filterToAll = await usdtContract.queryFilter(filterTo, -2)
-  console.log(filterToAll)
+  //console.log(filterToAll)
 
 
   console.log(await usdtContract.name()) //代币名称
