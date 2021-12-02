@@ -13,22 +13,14 @@ contract T3 {
      * Aggregator: ETH/USD
      * Address: 0x143db3CEEfbdfe5631aDD3E50f7614B6ba708BA7
      */
-    constructor() {
-        priceFeed = AggregatorV3Interface(0x143db3CEEfbdfe5631aDD3E50f7614B6ba708BA7);
-
-         (
-            uint80 roundID, 
-            int price,
-            uint startedAt,
-            uint timeStamp,
-            uint80 answeredInRound
-        ) = priceFeed.latestRoundData();
+    constructor(address addr) {
+        priceFeed = AggregatorV3Interface(addr);
     }
 
     /**
      * Returns the latest price
      */
-    function getLatestPrice() public view returns (int) {
+    function getLatestPrice() public view returns (uint80, int, uint, uint, uint80) {
         (
             uint80 roundID, 
             int price,
@@ -36,6 +28,6 @@ contract T3 {
             uint timeStamp,
             uint80 answeredInRound
         ) = priceFeed.latestRoundData();
-        return price;
+        return (roundID, price, startedAt, timeStamp, answeredInRound);
     }
 }
