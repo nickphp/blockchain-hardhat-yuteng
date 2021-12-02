@@ -11,32 +11,27 @@ const abiDataFormat = (data) => {
  * @returns 
  */
 async function main() {
+
+
   const ethUsdAddress = '0x143db3CEEfbdfe5631aDD3E50f7614B6ba708BA7'
   const usdtUsdAddress = '0xEca2605f0BCF2BA5966372C99837b1F182d3D620'
 
    const [owner] = await ethers.getSigners()
-  const Contract = await ethers.getContractFactory("T3")
+   const Contract = await ethers.getContractFactory("T3")
 
 
-    // console.log("开始部署ETH/USD")
-    // const contract = await Contract.deploy(ethUsdAddress);
-    // await contract.deployed()
-    // const address = contract.address;
-    // console.log(contract.address)
+    console.log("开始部署ETH/USD")
+    const contract = await Contract.deploy(ethUsdAddress);
+    await contract.deployed()
+    const address = contract.address;
+    console.log(contract.address)
 
-    // console.log("开始部署USDT/USD")
-    // const contract2 = await Contract.deploy(usdtUsdAddress);
-    // await contract2.deployed()
-    // const address2 = contract2.address;
-    // console.log(contract2.address)
-    
-
-    
-    //  const ownerContract = new ethers.Contract(contract.address, Contract.interface, owner)
-    // const result = await ownerContract.getLatestPrice();
-    // console.log(result)
-
-
+    console.log("开始部署USDT/USD")
+    const contract2 = await Contract.deploy(usdtUsdAddress);
+    await contract2.deployed()
+    const address2 = contract2.address;
+    console.log(contract2.address)
+    return false
 
     const ownerContract = new ethers.Contract('0xe128E08fDFD03760Ea22b4c2a4a3fA2c1a76C0DC', Contract.interface, owner)
     const [a, b ,c ,d ,e] = await ownerContract.getLatestPrice();

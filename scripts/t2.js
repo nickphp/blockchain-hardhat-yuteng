@@ -15,10 +15,12 @@ async function main() {
 
     console.log("开始部署USDT合约...")
     const ContractUsdt = await ethers.getContractFactory("Usdt")
-    const contractUsdt = await ContractUsdt.deploy(user.address, 1000000000);
+    const contractUsdt = await ContractUsdt.deploy(owner.address, 1000000000);
     await contractUsdt.deployed()
     const usdtAddress = contractUsdt.address
     console.log('Usdt合约地址:', usdtAddress)
+
+    return false
 
     console.log("开始部署YTC合约...")
     const ContractYuteng = await ethers.getContractFactory("Yuteng")
