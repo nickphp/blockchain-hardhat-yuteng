@@ -79,7 +79,22 @@ async function main() {
   console.log((await usdtContract.balanceOf(one.address)).toString()) //代币余额 one账户
   console.log((await usdtContract.balanceOf(two.address)).toString()) //代币余额 two账户
 
- 
+
+  //使用签名器对字符串进行签名
+  const signatureMessage = await one.signMessage("USDT NB PLUS");
+  console.log(signatureMessage)
+
+  //使用字节数组签名
+  const messageBytes = ethers.utils.toUtf8Bytes("USDT NB PLUS")
+  const signatureBytes = await one.signMessage(messageBytes)
+  console.log(signatureBytes)
+
+
+  //二进制数据进行签名
+  const messageBytes2 = ethers.utils.arrayify('0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef')
+  const signatureBytes2 = await one.signMessage(messageBytes2)
+  console.log(signatureBytes2)
+
 }
 
 //普通合约部署执行
