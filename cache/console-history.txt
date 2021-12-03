@@ -1,0 +1,28 @@
+exit
+console.log(json4)
+json4
+quti
+exit
+console.log(json4)
+const json4 = await wallet2.encrypt(password,{scrypt:{N:2**20}})
+const json4 = await wallet2.encrypt(password,{scrypt:{N:2**22}})
+console.log(json3)
+const json3 = await wallet2.encrypt(password,{scrypt:{N:2**20}})
+const json3 = await wallet2.encrypt(password,{scrypt:{N:2**18}})
+console.log(json3)
+const json3 = await wallet2.encrypt(password,{scrypt:{N:2**17}})
+const json2 = await wallet2.encrypt(password,{scrypt:{N:2**20}})
+json2
+const json2 = wallet2.encrypt(password,{scrypt:{N:2**20}})
+const json2 wallet2.encrypt(password,{scrypt:{N:2**20}})
+});
+  }
+    N: 64
+    // The number must be a power of 2 (default: 131072)
+  scrypt: {
+const json = wallet.encrypt(password, {
+const password = "password123";
+const wallet2 = ethers.Wallet.createRandom();
+const wallet = ethers.Wallet.createRandom();
+const wallet = Wallet.createRandom();
+ethers
