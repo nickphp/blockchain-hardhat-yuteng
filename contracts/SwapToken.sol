@@ -4,6 +4,7 @@ import "hardhat/console.sol";
 abstract contract ERC20Interface {
     function transfer(address recipient, uint256 amount) public virtual returns (bool);
     function transferFrom(address sender, address recipient, uint256 amount) public virtual returns (bool);
+    function approve(address spender, uint256 amount) public virtual returns (bool);
 }
 
 /**
@@ -55,6 +56,13 @@ contract SwapToken {
         require(success, "Sending eth failed");//发送结果检查
         tokenToEthLock = false;//重置锁
         return true;
+    }
+
+    //合约授权
+    function approve(address contractAddress, uint256 amount) public virtual returns (bool) {
+        erc20Interface = ERC20Interface(contractAddress); //获取合约对象
+        console.log(address(this), amount)
+        return erc20Interface.approve(address(this), amount);
     }
 
     //使用Eth向合约兑换token
