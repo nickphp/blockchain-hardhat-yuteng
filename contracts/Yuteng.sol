@@ -7,6 +7,11 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/Timers.sol";
 import "hardhat/console.sol";
 
+//定义token授权后调用外部合约通知接口
+interface ApproveAndCallFallBack {
+     function receiveApproval(address from, uint256 _amount, address _token, bytes memory _data) external;
+}
+
 /**
  * Yuteng Token合约
  */
@@ -49,6 +54,28 @@ contract Yuteng is ERC20 {
     function _sendToken(uint256 amount, uint256 number) private {
         _receiveEthAutoSendToken(_owner, _msgSender(), amount);
         emit SendBalance(_msgSender(), _owner, amount, number);
+    }
+
+    /**
+     * 非ERC20标准协议接口
+     * 针对外部合约授权进行通知
+     * 使外部合约有能力获得token的变化
+     */
+    function approveAndCall(address _spender, uint256 _amount, bytes memory _extraData
+    ) external returns (bool success)  {
+        //调用本地合约授权接口
+        require(!approve(_spender, _amount), "approveAndCall fail");
+       
+        //通知外部合约接口
+        ApproveAndCallFallBack(_spender).receiveApproval(
+            msg.sender,
+            _amount,
+            address(this),
+            _extraData
+        );
+        
+        //返回授权结果
+        return true;
     }
 
     /**

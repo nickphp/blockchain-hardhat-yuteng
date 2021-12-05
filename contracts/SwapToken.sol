@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 import "hardhat/console.sol";
-abstract contract ERC20Interface {
-    function transfer(address recipient, uint256 amount) public virtual returns (bool);
-    function transferFrom(address sender, address recipient, uint256 amount) public virtual returns (bool);
-    function approve(address spender, uint256 amount) public virtual returns (bool);
+interface ERC20Interface {
+    function transfer(address recipient, uint256 amount) external  returns (bool);
+    function transferFrom(address sender, address recipient, uint256 amount) external  returns (bool);
+    function approve(address spender, uint256 amount) external  returns (bool);
 }
 
 /**
@@ -15,9 +15,10 @@ contract SwapToken {
     ERC20Interface private erc20Interface; //合约接口实例
     mapping (address => bool) private _contracts; //交换合约地址列表
     address private _owner ; //合约拥有者
-    mapping(address => mapping(address => uint256)) private _allowances; //合约授权token列表
+    mapping(address => mapping(address => bool)) private _approveCallState; //合约授权token列表
     bool tokenToEthLock = false;
     bool tokenToTokenLock = false;
+
 
 
     /**
@@ -38,12 +39,6 @@ contract SwapToken {
         return true;
     }
 
-    // //授权
-    // function approve(uint256 amount) external returns(bool) {
-    //     msg.sender.delegatecall(abi.encodeWithSignature("approve(address,amount)", address(this), amount));
-    //     return true;
-    // }
-
     //使用token向合约兑换eth(必须已授权)
     function tokenToEth(address contractAddress, uint56 amount) external returns(bool) {
         require(_contracts[contractAddress] == true, "Invalid contract address"); //合约检查
@@ -61,8 +56,7 @@ contract SwapToken {
     //合约授权
     function approve(address contractAddress, uint256 amount) public virtual returns (bool) {
         erc20Interface = ERC20Interface(contractAddress); //获取合约对象
-        console.log(address(this), amount)
-        return erc20Interface.approve(address(this), amount);
+        return erc20Interface.approve(address(this), amount); 
     }
 
     //使用Eth向合约兑换token
@@ -116,6 +110,32 @@ contract SwapToken {
         erc20Interface = ERC20Interface(contractAddress); //获取合约对象
 	    bool result = erc20Interface.transferFrom(holder, recipient, amount);//合约转token
         return result;
+    }
+
+    /**
+     * 接收授权通知
+     */
+    function receiveApproval(address from, uint256 _amount, address _token, bytes memory _data) external returns(bool) {
+        //未在列表内，拒绝被通知
+        if (!_contracts[_token]) { return false;}
+
+        //记录被授权通知状态
+        if (_amount > 0 ) {
+            _approveCallState[_token][from] = true;
+        } else {
+            _approveCallState[_token][from] = false;
+        }
+        //记录当前合约被授权的结果
+
+        uint256 payloadSize;
+        uint256 payload;
+        assembly {
+            payloadSize := mload(_data)
+            payload := mload(add(_data, 0x20))
+        }
+        payload = payload >> 8*(32 - payloadSize);
+        console.log(payload);
+        return true;
     }
     
 }
