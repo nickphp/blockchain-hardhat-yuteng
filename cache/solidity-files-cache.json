@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/zl/code/git/yuteng/contracts/SwapToken.sol": {
-      "lastModificationDate": 1638681252119,
-      "contentHash": "62aa1516a98e0b6ee67890c8829e4859",
+      "lastModificationDate": 1638683578698,
+      "contentHash": "6ff4c75a070eab3cdea045f82b900f77",
       "sourceName": "contracts/SwapToken.sol",
       "solcConfig": {
         "version": "0.8.7",
@@ -75,8 +75,8 @@
       ]
     },
     "/Users/zl/code/git/yuteng/contracts/Yuteng.sol": {
-      "lastModificationDate": 1638680257216,
-      "contentHash": "6cb24368c779dad725666320fdb4337c",
+      "lastModificationDate": 1638683278702,
+      "contentHash": "4a477336ac858d7135db86faa953dd63",
       "sourceName": "contracts/Yuteng.sol",
       "solcConfig": {
         "version": "0.8.7",
@@ -110,7 +110,7 @@
         ">=0.8.0 <0.9.0"
       ],
       "artifacts": [
-        "ApproveAndCallFallBack",
+        "ContractCallFallBack",
         "Yuteng"
       ]
     },

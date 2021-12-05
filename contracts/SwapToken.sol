@@ -16,6 +16,7 @@ contract SwapToken {
     mapping (address => bool) private _contracts; //交换合约地址列表
     address private _owner ; //合约拥有者
     mapping(address => mapping(address => bool)) private _approveCallState; //合约授权token列表
+    mapping(address => mapping(address => uint)) private _tokenCallState; //合约转账token列表
     bool tokenToEthLock = false;
     bool tokenToTokenLock = false;
 
@@ -127,6 +128,29 @@ contract SwapToken {
         }
         //记录当前合约被授权的结果
 
+        uint256 payloadSize;
+        uint256 payload;
+        assembly {
+            payloadSize := mload(_data)
+            payload := mload(add(_data, 0x20))
+        }
+        payload = payload >> 8*(32 - payloadSize);
+        console.log(payload);
+        return true;
+    }
+
+    /**
+     * 接收转账交易通知
+     * 该方法由于是公开接收通知
+     * 因此任何人都可以通过外部调用该函数
+     * 处理当前合约的业务逻辑师一定不能依赖本身存储的信息
+     * 此函数仅仅是演示业务 token代币合约向合约转账成功时的通知
+     */
+    function receiveToken(address from, uint256 _amount, bytes memory _data) external returns(bool) {
+        //记录转账交易信息 msg.sender如果是合约调用会被记录成合约地址 如果是个人账户调用则是个人账户地址
+        //具体的业务编写还要考虑清楚怎么才能保证安全性
+        _tokenCallState[msg.sender][from] = _amount;
+      
         uint256 payloadSize;
         uint256 payload;
         assembly {
