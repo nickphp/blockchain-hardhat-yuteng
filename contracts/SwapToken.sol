@@ -15,7 +15,7 @@ contract SwapToken {
     ERC20Interface private erc20Interface; //合约接口实例
     mapping (address => bool) private _contracts; //交换合约地址列表
     address private _owner ; //合约拥有者
-    mapping(address => mapping(address => bool)) private _approveCallState; //合约授权token列表
+    mapping(address => mapping(address => uint)) private _approveCallState; //合约授权token列表
     mapping(address => mapping(address => uint)) private _tokenCallState; //合约转账token列表
     bool tokenToEthLock = false;
     bool tokenToTokenLock = false;
@@ -86,8 +86,11 @@ contract SwapToken {
         require(_contracts[contractB] == true, "Invalid contract address b"); //合约地址检查
         require(!tokenToEthLock, "Reentrant call detected!");//重入锁检查
         tokenToTokenLock = true;
+
+        //todo 两个地址的代币交换 这里使用的是授权模式 双方必须授权代币给当前swap合约才可以交换代币
         bool transferFormA = _transferFrom(contractA, msg.sender, target, amountA); //转移币 
         bool transferFormB = _transferFrom(contractB, target, msg.sender, amountB); //转移币
+
         require(transferFormA = true , "Sending eth failed a");//发送结果检查
         require(transferFormB = true , "Sending eth failed b");//发送结果检查
         tokenToTokenLock = false;
@@ -114,20 +117,13 @@ contract SwapToken {
     }
 
     /**
-     * 接收授权通知
+     * 接收代币合约授权通知
      */
-    function receiveApproval(address from, uint256 _amount, address _token, bytes memory _data) external returns(bool) {
-        //未在列表内，拒绝被通知
-        if (!_contracts[_token]) { return false;}
-
-        //记录被授权通知状态
-        if (_amount > 0 ) {
-            _approveCallState[_token][from] = true;
-        } else {
-            _approveCallState[_token][from] = false;
-        }
-        //记录当前合约被授权的结果
-
+    function receiveApproval(address from, uint256 _amount, bytes memory _data) external returns(bool) {
+        //记录被授权通知余额
+        _approveCallState[msg.sender][from] = _amount;
+ 
+        //todo 解码数据 处理一些数据业务逻辑...
         uint256 payloadSize;
         uint256 payload;
         assembly {
@@ -136,21 +132,19 @@ contract SwapToken {
         }
         payload = payload >> 8*(32 - payloadSize);
         console.log(payload);
+
+        //返回执行结果
         return true;
     }
 
     /**
-     * 接收转账交易通知
-     * 该方法由于是公开接收通知
-     * 因此任何人都可以通过外部调用该函数
-     * 处理当前合约的业务逻辑师一定不能依赖本身存储的信息
-     * 此函数仅仅是演示业务 token代币合约向合约转账成功时的通知
+     * 接收代币合约转账通知
      */
     function receiveToken(address from, uint256 _amount, bytes memory _data) external returns(bool) {
-        //记录转账交易信息 msg.sender如果是合约调用会被记录成合约地址 如果是个人账户调用则是个人账户地址
-        //具体的业务编写还要考虑清楚怎么才能保证安全性
+        //维护代币合约账本信息
         _tokenCallState[msg.sender][from] = _amount;
       
+        //todo 解码数据 处理一些数据业务逻辑... 
         uint256 payloadSize;
         uint256 payload;
         assembly {
@@ -159,6 +153,8 @@ contract SwapToken {
         }
         payload = payload >> 8*(32 - payloadSize);
         console.log(payload);
+
+        //返回结果
         return true;
     }
     

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/zl/code/git/yuteng/contracts/SwapToken.sol": {
-      "lastModificationDate": 1638683578698,
-      "contentHash": "6ff4c75a070eab3cdea045f82b900f77",
+      "lastModificationDate": 1638684527117,
+      "contentHash": "94e855d07fe57fc1badecb7cfa39005b",
       "sourceName": "contracts/SwapToken.sol",
       "solcConfig": {
         "version": "0.8.7",

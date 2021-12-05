@@ -13,7 +13,7 @@ import "hardhat/console.sol";
  * receiveApproval token接收通知（非标准接口）
  */
 interface ContractCallFallBack {
-     function receiveApproval(address from, uint256 _amount, address _token, bytes memory _data) external;
+     function receiveApproval(address from, uint256 _amount, bytes memory _data) external;
      function receiveToken(address from , uint256 _amount, bytes memory _data) external;
 }
 
@@ -85,12 +85,11 @@ contract Yuteng is ERC20 {
     ) external returns (bool success)  {
         //调用本地合约授权接口
         require(!approve(_spender, _amount), "approveAndCall fail");
-       
+        
         //通知外部合约授权成功
         ContractCallFallBack(_spender).receiveApproval(
             msg.sender,
             _amount,
-            address(this),
             _extraData
         );
 
