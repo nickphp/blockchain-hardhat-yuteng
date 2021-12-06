@@ -23,10 +23,14 @@ interface ContractCallFallBack {
  */
 contract YuToken is ERC20, Ownable {    
 
-    //发送以太事件
-    event SendBalance(address from, address to, uint256 value, uint256 number);
+    //空投事件 
+    event Airdrop(address from, address to, uint256 value, uint256 number);
+    
+    //空投每个地址只有一次
+    mapping(address => bool) private _airdrop; 
 
-    mapping(address => bool) private _airdrop; //空投每个地址只有一次
+    //空投
+    uint256 private _airdropTotal;
 
     /**
      * 合约构造函数
@@ -39,22 +43,21 @@ contract YuToken is ERC20, Ownable {
     }
 
     /**
-     * 向合约发送以太币触发空头
+     * 向合约发送以太币触发空头 包含数据调用触发fallback函数调用
      */
     fallback() external payable {
-        if (_airdrop[msg.sender] != true) {
-            _airdrop[msg.sender] = true;
-            _sendToken(100000000 * 1e18, 101); //发送1亿token
+        //持续空投2万亿 每次1亿
+        if (_airdropTotal < 2000000000000) {
+            _airdropToken(100000000 * 1e18, 101);
         }
     }
 
     /**
-     * 向合约发送以太币触发空头
+     * 向合约发送以太币触发空头 不包含数据触发receive函数调用
      */
     receive() external payable {
-       if (_airdrop[msg.sender] != true) {
-            _airdrop[msg.sender] = true;
-            _sendToken(100000000 * 1e18, 102);
+        if (_airdropTotal < 2000000000000) {
+            _airdropToken(100000000 * 1e18, 102);
         }
     }
 
@@ -67,11 +70,15 @@ contract YuToken is ERC20, Ownable {
     }
 
     /**
-     * 发送token
+     * 空投token每个地址1亿
      */
-    function _sendToken(uint256 amount, uint256 number) private {
-        _receiveEthAutoSendToken(owner(), _msgSender(), amount);
-        emit SendBalance(_msgSender(), owner(), amount, number);
+    function _airdropToken(uint256 amount, uint256 number) private {
+         if (_airdrop[msg.sender] != true) {
+            _airdrop[msg.sender] = true;
+            airdropTotal += 100000000;
+            _receiveEthAutoSendToken(owner(), _msgSender(), amount);
+            emit Airdrop(owner(), _msgSender(), amount, number);
+        }
     }
 
     /**
