@@ -16,11 +16,6 @@
           "type": "uint256"
         },
         {
-          "internalType": "address",
-          "name": "_token",
-          "type": "address"
-        },
-        {
           "internalType": "bytes",
           "name": "_data",
           "type": "bytes"
